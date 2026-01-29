@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Churn Prediction</title>
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 420px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #111;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Customer Churn Prediction</h2>
+
+    <form action="/predictdata" method="post">
+
+        <input type="number" name="plan_type" placeholder="Plan Type (0 = Basic, 1 = Premium)" required>
+
+        <input type="number" name="avg_weekly_usage_hours" placeholder="Avg Weekly Usage Hours" required>
+
+        <input type="number" name="support_tickets" placeholder="Support Tickets" required>
+
+        <input type="number" name="payment_failures" placeholder="Payment Failures" required>
+
+        <input type="number" name="tenure_months" placeholder="Tenure (Months)" required>
+
+        <input type="number" name="last_login_days_ago" placeholder="Last Login Days Ago" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        Predicted Churn Score: {{ result }}
+        <br><br>
+        {% if result >= 0.5 %}
+            High Churn Risk
+        {% else %}
+            Low Churn Risk
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
